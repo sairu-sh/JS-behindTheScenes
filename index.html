@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+  <head>
+    <meta charset='utf-8'></meta>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Documentation Page</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <main id="main-doc">
+      <div class="flexdisplay">
+      <nav id="navbar">
+        <header>NAVBAR</header>
+        <ul class="navlink">
+          <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+          <li><a class="nav-link" href="#JS_Engine">JS Engine</a></li>
+          <li><a class="nav-link" href="#JIT_compilation">JIT compilation</a></li>
+          <li><a class="nav-link" href="#Execution_Context_and_Compilation">Execution Context and Compilation</a></li>
+          <li><a class="nav-link" href="#Scoping">Scoping</a></li>
+          <li><a class="nav-link" href="#Scope_Chain_v/s_Call_Stack">Scope Chain v/s Call Stack</a></li>
+          <li><a class="nav-link" href="#Variable_Environment_&_Hoisting">Variable Environment & Hoisting</a></li>
+          <li><a class="nav-link" href="#this_Keyword">this Keyword</a></li>
+          <li><a class="nav-link" href="#Primitive_vs_Reference_values">Primitive vs Reference values</a></li>
+          <li><a class="nav-link" href="#Reference">Reference</a></li>
+        </ul>
+      </nav>
+      <section class="main-section" id="Introduction">
+        <header>Introduction</header>
+        <p id="">JavaScript is a high-level, interpreted programming language primarily used for web development. It allows developers to add interactivity and dynamic behavior to websites, enabling features like form validation, DOM manipulation, and asynchronous communication. JavaScript is supported by all modern web browsers and can also be used on the server-side with platforms like Node.js.
+        <br>
+        <br>Properties of JavaScript:
+        </p>
+        <ul>
+          <li>High-level</li>
+          <li>Garbage-collected</li>
+          <li>Interpreted or just-in-time compiled</li>
+          <li>Multi-paradigm</li>
+          <li>Prototype-based object-oriented</li>
+          <li>First-class functions</li>
+          <li>Dynamic</li>
+          <li>Single-threaded</li>
+          <li>Non-blocking event loop</li>
+        </ul>
+      </section>
+      <section class="main-section" id="JS_Engine">
+        <header>JS Engine</header>
+        <p id="">JS engine is a program or component that executes JS codes. e.g. V8 of google.  It is responsible for parsing, interpreting, and executing JavaScript code, typically within a host environment such as a web browser or a server-side environment. A JS engine basically has two components viz. call stack and the memory heap or simply heap.
+        <br>
+        <br>Call stack is where the code is executed.
+        <br>
+        <br>Heap is where the objects are stored.
+        </p>
+        <img src="images/JS engine.jpg" alt="JS engine">
+      </section>
+
+      <section class="main-section" id="JIT_compilation">
+        <header>JIT compilation</header>
+        <p id="">JIT stands for just in time compilation. Entire code is converted into machine code at once, then executed immediately. It dynamically compiles parts of the JavaScript code at runtime, right before they are executed. It identifies hotspots, optimizes them, and translates them into highly optimized machine code. This improves the execution speed of the code by executing it directly on the CPU. </p>
+        <img src="images/JIT.JPG" alt="JIT.JPG"" id="jit">
+        <p>JavaScript engine encounters a script, it first parses the code to create an Abstract Syntax Tree (AST), which represents the structure of the code.</p>
+        <img src="images/JIT compilation.png" alt="JIT compilation.png" style="max-height: 400px;">
+        </section>
+
+      <section class="main-section" id="Execution_Context_and_Compilation">
+        <header>Execution Context and Compilation</header>
+        <p id="Execution_Context_and_Compilation"><span id="bold">Execution context</span> is an environment in which a piece of JS is executed stores all the necessary information for some code is to be executed. One execution context per function: for each function call, a new execution context is created.</p>
+        <p id=""><span id="bold">Compilation</span> in JS happens in the following steps: </p>
+        <ol>
+          <li>creation of global execution context(for top-level code)</li>
+          <li>execution of top-level code inside global E.C.</li>
+          <li>execution of function & call backs</li>
+        </ol>
+        <p><span id="bold">Inside an EC</span>,</span>
+        <ul>
+          <li>Variable Environment
+            <ul id="nested" style="margin-left: -10px;">
+              <li>let, constant & var declaration</li>
+              <li>functions</li>
+              <li>argumemt object</li>
+            </ul>
+          </li>
+          <li>Scope Chain</li>
+          <li>this keyword</li>
+        </ul>
+        </p>
+        <p><span id="bold">Call stack</span>
+        <br>Let's look at how functions are executed inside a call stack.</p>
+        <video src="videos/callStack - Made with Clipchamp.mp4" controls autoplay>hgd</video>
+      </section>
+
+      <section class="main-section" id="Scoping">
+        <header>Scoping</header>
+        <p id="">Scoping controls how program's variables are organised and accessed by the JS engine.</p>
+        <p id=""> Lexical scoping: scoping is controlled by placement of functions and blocks in the code.</p>
+        <p>scope: space/environment in which a certain variable is declared, <br>
+        global/ function/ block scope - {}
+       <br>i.e. if, for and so on but only for  let & const  not var. 
+       <br>Scope of variable: region of code where a certain variable can be accessed. 
+      </p>
+      <div id="code-graph">
+      <pre><code>
+         const myName = 'Jonas';
+         function first(){
+           const age = 30;
+           if (age >= 30){
+             const decade = 3;//block scoped
+             var millenial = true; //function-scoped
+           }
+           function second(){
+             const job = 'teacher';
+             console.log(`${myName} is a teacher who is ${age} years old.`);
+           }
+           second();
+         } 
+         first();
+      </code></pre>
+      <img src="images/scopechain.jpg" alt="scopechain.jpg">
+      </div>
+      <p>Every scope has acess to variables of the parent scope/ scope outside the scope. In this case, first --> global and second --> first. This is called variable look-up.
+      </p>
+      </section>
+    <section class="main-section" id="Scope_Chain_v/s_Call_Stack">
+      <header>Scope Chain v/s Call Stack</header>
+      <p>Let's look at the code below to better understand the difference between scope chain and call-stack.</p>
+      <pre><code>
+        const a = 'Jonas';
+        first();
+
+        function first(){
+          const b = 'Hello!';
+          second();
+
+          function second(){
+            const c = 'Hi!';
+            third();
+          }
+        } 
+        fuction third(){
+          const d = 'Hey!';
+          console.log(d + c + b + a);
+          //Reference error
+        }
+      </code></pre>
+      <img src="images/CS-SC.jpg" alt="CS-SC.jpg" style="margin-left: -100px;">
+    </section>
+
+      <section class="main-section" id="Variable_Environment_&_Hoisting">
+        <header>Variable Environment & Hoisting</header>
+        <p id="">Hoisting makes some types of variables accessible/ usable in the code before they are declared. "Variables are lifted to the top of their scope"
+          <br> Before execution, code is scanned for variable declarations and for each a new property is created in the variable environment object.
+        </p>
+        <table>
+          <caption>Hoisting of different components</caption>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Hoisted?</th>
+              <th>Initial value</th>
+              <th>Scope</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>function declarations</th>
+              <td>Yes</td>     
+              <td>Actual functional</td> 
+              <td>block</td>  
+            </tr>      
+            <tr>
+              <th>var variables</th>
+              <td>Yes</td>     
+              <td>undefined</td> 
+              <td>function</td>  
+            </tr> 
+            <tr>
+              <th>let and const variables</th>     
+              <td>No</td> 
+              <td>&lt;uninitialized&gt;, TDZ</td>
+              <td>block</td>  
+            </tr> 
+            <tr>
+              <th>fuction expressions & arrow functions</th>
+                <td>depends whether </td>
+                <td>var or const/</td>     
+                <td> let was used</td>
+            </tr> 
+          </tbody>
+        </table>
+
+        <header>Temporal Dead Zone</header>
+        <p>Zone starting the begining of the scope to the line where the variable is defined. The Temporal Dead Zone (TDZ) is a behavior in JavaScript that occurs during the variable initialization phase using the let and const keywords. It refers to the period in which a variable exists but is not yet accessible or can't be used due to being in an uninitialized state.</p>
+        <pre><code>
+          console.log(x); // ReferenceError: x is not defined
+          let x = 10;
+        </code></pre>
+        <p>In this code snippet, accessing the variable x before its declaration leads to a ReferenceError. This is because x is still in the TDZ until the line let x = 10; is encountered.
+        <br>
+        <br> To avoid the Temporal Dead Zone, ensure that variables declared with let or const are accessed and referenced after their declaration within the same scope.</p>
+      </section>
+
+      <section class="main-section" id="this_Keyword">
+        <header>this Keyword</header>
+        <p id="">The thid keyword takes the value of (points to) the 'owner' of the function in which this keyword is used.
+          <br>
+          <br> this keyword has a non-static value, meaning, it depends on how the function is called, and its value is only assigned when the function is actually called.
+          <br>
+          <br> Let us see what the 'this' keyword holds when used inside different components.
+        </p>
+        <table>
+          <tbody>
+            <tr>
+              <th>method</th>
+              <td>this = &lt;object that is calling the method&gt; </td>
+              <tr>
+                <th>simple function call</th>
+                <td>this = &lt;undefined&gt; </td>
+              </tr>
+              <tr>
+                <th>arrow function</th>
+                <td>this = &lt;this of surrounding function(lexical this)&gt; </td>
+              </tr>
+              <tr>
+                <th>eventListener</th>
+                <td>this = &lt;DOM element that the handler is attached to&gt; </td>
+              </tr>
+            </tr>
+          </tbody>
+        </table>
+        <p>'this' in global scope is the window object.
+          <br>
+          <br> There is a loophole in using 'this' keyword with simple function call so that we can still point to the variables inside the calling function. We can do so by using an extra variable we usually call 'self' in the following way.
+        </p>
+        <pre><code>
+          const self = this;
+          const name = function(){
+            console.log(self);
+          }
+        </code></pre>
+        <p>Here, the 'this' points to the surrounding function or global scope. Instead of using an extra variable, we can simply use arrow function.</p>
+      </section>
+      <section class="main-section" id="Primitive_vs_Reference_values">
+        <header>Primitive vs Reference values</header>
+        <p id="">There is a huge difference in how primitive values and reference values are stored. Primitive data types include numbers, strings, Boolean, etc. defined with let, var, and const while references include data structures like objects. Let's look at how they are stored differently with the help of the following codes</p>
+      <pre><code>
+        let age = 30;
+        let oldAge = age;
+        age = 31;
+        console.log('age: ', age);
+        console.log('oldAge: ', oldAge);
+      </code></pre>
+      <p>Output:</p>
+      <div class="output">
+        <code>
+          age: 31
+          <br>
+          oldAge: 30
+        </code>
+      </div>
+      <pre><code>
+        const me = {
+        age = 30
+        };
+        const friend = me;
+        friend.age = 27;
+        console.log('friend: ', friend);
+        console.log('me: ', me);
+      </code></pre>
+      <p>Output:</p>
+      <div class="output">
+        <code>friend: 27
+          <br>me: 27
+        </code>
+      </div>
+      <p>In the first program, there are two variables, age and oldAge. The value of age is copied to oldAge. In the second code, we have two objects, me and friend. The me object is copied to the friend object. When looked at the outputs, in the first case, changing the value of age after assigning to oldAge, didn't change the value of oldAge but changing the age property of friend object also changed the age property of me object.
+      <br>
+      <br>In the primitive value case, when age is defined/ declared, an address is allocated for it in the call stack where the value 30 is stored. We may think that age variable stores the actual value but what it actually stores is the memory address that stores the value. When oldAge is assigned age, it actually is getting the address stored in age so, both age and oldAge is pointing to the same address. When the age is assigned a new value, another address is allocated for that value and the age variable now stores the new address. This is why making changes to age does not change oldAge. But it is not the case in reference values.
+      <br>
+      <br>In the case of reference values, here objects, the values or properties of object are stored in the heap. The me identifier does not actually point to the newly created memory address in the heap. Instead, it will point to a new piece of memory created in the stack. And this new piece of memory will point to the object that's in the  heap by using the memory address that's in its value. In other words, the piece of memory in the call stack has a reference to the piece memory in the heap which holds our me object. It works this way because objects may be too large to store in the stack. The friend identifier will find the exact address as the me identifier which points to the me object. The fact thhat me and friemd point to the exact same object in the memory heap. SO this is why changing age in friend also changes the age in me.
+      </p>
+      <img src="images/primitiveVsReference.jpg" alt="primitiveVsReference.jpg">
+    </section>
+    <section class="main-section" id="Reference">
+      <header>Reference</header>
+      <p>The materials were referenced from <a href="https://www.udemy.com/course/the-complete-javascript-course/" style="color: black">complete-javascript-course-master</a> by Jonas Schmedtmann from udemy and chatGPT.</p>
+    </section>
+    </main>
+  </div>
+  </body>
+</html>
+ 
